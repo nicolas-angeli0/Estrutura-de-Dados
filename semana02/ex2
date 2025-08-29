@@ -1,1 +1,21 @@
+class Contato:
+    def __init__(self, nome, telefone, email):
+        self.nome = nome
+        self.telefone = telefone
+        self.email = email
+
+def main():
+    agenda = []
+
+    for i in range(3):
+        nome = input("Digite o nome do contato: ")
+        telefone = input("Digite o telefone do contato: ")
+        email = input("Digite o e-mail do contato: ")
+        contato = Contato(nome, telefone, email)
+        agenda.append(contato)
+
+    for c in agenda:
+        print("Nome:", c.nome, "- Telefone:", c.telefone)
+
+main()
 
