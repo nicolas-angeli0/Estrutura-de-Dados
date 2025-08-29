@@ -1,1 +1,25 @@
+#Leia um vetor de inteiros e mostre quantas vezes cada número aparece no vetor, sem repetir a contagem para o mesmo valor.
+
+def main():
+    n = int(input("Quantos números terá o vetor? "))
+    numeros = []
+
+    for i in range(n):
+        valor = int(input("Digite o número da posição: "))
+        numeros.append(valor)
+
+    visitados = []
+
+    for i in range(len(numeros)):
+        num = numeros[i]
+
+        if num not in visitados:
+            cont = 0
+            for j in range(len(numeros)):
+                if numeros[j] == num:
+                    cont += 1
+            print("Número", num, "aparece", cont, "vez(es)")
+            visitados.append(num)
+
+main()
 
