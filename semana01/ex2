@@ -1,1 +1,25 @@
+#Preencha um vetor com números inteiros e crie outro vetor contendo apenas os números primos encontrados.
 
+def main():
+    n = int(input("Quantos números terá o vetor? "))
+    numeros = []
+
+    for i in range(n):
+        valor = int(input("Digite o número: "))
+        numeros.append(valor)
+
+    primos = []
+
+    for i in range(len(numeros)):
+        num = numeros[i]
+        if num > 1:
+            primo = 1
+            for j in range(2, num):
+                if num % j == 0:
+                    primo = 0
+                    break
+            if primo == 1:
+                primos.append(num)
+
+    print("Números primos encontrados:", primos)
+main()
