@@ -1,1 +1,34 @@
+class No:
+    def __init__(self, valor):
+        self.info = valor
+        self.prox = None
 
+class ListaEncadeada:
+    def __init__(self):
+        self.inicio = None
+
+    def inserir(self, valor):
+        novo = No(valor)
+        if self.inicio is None:
+            self.inicio = novo
+        else:
+            aux = self.inicio
+            while aux.prox:
+                aux = aux.prox
+            aux.prox = novo
+
+    def listar(self):
+        aux = self.inicio
+        while aux:
+            print(aux.info, end=" ")
+            aux = aux.prox
+        print()
+
+def maiores(lst, n):
+    cont = 0
+    aux = lst.inicio
+    while aux:
+        if aux.info > n:
+            cont += 1
+        aux = aux.prox
+    return cont
