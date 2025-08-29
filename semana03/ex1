@@ -1,1 +1,79 @@
-semana03
+class No:
+    def __init__(self, valor):
+        self.valor = valor
+        self.proximo = None
+
+class ListaEncadeada:
+    def __init__(self):
+        self.inicio = None
+
+    def inserir(self, valor):
+        novo = No(valor)
+        if self.inicio is None:
+            self.inicio = novo
+        else:
+            atual = self.inicio
+            while atual.proximo is not None:
+                atual = atual.proximo
+            atual.proximo = novo
+
+    def listar(self):
+        if self.inicio is None:
+            print("Lista vazia.")
+        else:
+            atual = self.inicio
+            while atual is not None:
+                print(atual.valor)
+                atual = atual.proximo
+
+    def remover(self, valor):
+        if self.inicio is None:
+            print("Lista vazia, nada para remover.")
+            return
+
+        if self.inicio.valor == valor:
+            self.inicio = self.inicio.proximo
+            print("Valor", valor, "removido.")
+            return
+
+        anterior = self.inicio
+        atual = self.inicio.proximo
+
+        while atual is not None:
+            if atual.valor == valor:
+                anterior.proximo = atual.proximo
+                print("Valor", valor, "removido.")
+                return
+            anterior = atual
+            atual = atual.proximo
+
+        print("Valor", valor, "não encontrado na lista.")
+
+def menu():
+    lista = ListaEncadeada()
+
+    while True:
+        print("\n--- MENU ---")
+        print("1 - Inserir item")
+        print("2 - Listar itens")
+        print("3 - Remover item")
+        print("4 - Sair")
+
+        opcao = int(input("Escolha uma opção: "))
+
+        if opcao == 1:
+            valor = float(input("Digite um número float: "))
+            lista.inserir(valor)
+        elif opcao == 2:
+            lista.listar()
+        elif opcao == 3:
+            valor = float(input("Digite o valor a remover: "))
+            lista.remover(valor)
+        elif opcao == 4:
+            print("Encerrando programa...")
+            break
+        else:
+            print("Opção inválida.")
+
+menu()
+
