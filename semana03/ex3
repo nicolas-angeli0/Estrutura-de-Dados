@@ -1,1 +1,13 @@
+class No:
+    def __init__(self, valor):
+        self.info = valor
+        self.prox = None
+
+def ultimo(lista):
+    if lista is None:   # lista vazia
+        return None
+    aux = lista
+    while aux.prox is not None:
+        aux = aux.prox
+    return aux
 
