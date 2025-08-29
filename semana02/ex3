@@ -1,1 +1,27 @@
+class Produto:
+    def __init__(self, nome, preco, quantidade):
+        self.nome = nome
+        self.preco = preco
+        self.quantidade = quantidade
+
+    def atualizar_estoque(self, valor):
+        self.quantidade += valor
+
+def main():
+    produtos = []
+
+    for i in range(2):
+        nome = input("Digite o nome do produto: ")
+        preco = float(input("Digite o preço do produto: "))
+        quantidade = int(input("Digite a quantidade em estoque: "))
+        produto = Produto(nome, preco, quantidade)
+        produtos.append(produto)
+
+    for p in produtos:
+        print("Produto", p.nome, "Preço", p.preco, "Quantidade", p.quantidade)
+        valor = int(input("Digite quanto deseja adicionar ao estoque de", p.nome, ":"))
+        p.atualizar_estoque(valor)
+        print("Após atualização - Produto", p.nome, "Quantidade", p.quantidade)
+
+main()
 
