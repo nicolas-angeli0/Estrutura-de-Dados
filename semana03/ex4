@@ -1,1 +1,19 @@
+class No:
+    def __init__(self, valor):
+        self.info = valor
+        self.prox = None
+
+def concatena(l1, l2):
+    if l1 is None:
+        return l2
+    if l2 is None:
+        return l1
+    
+    aux = l1
+    while aux.prox is not None:
+        aux = aux.prox
+    
+    aux.prox = l2
+    
+    return l1
 
