@@ -1,1 +1,15 @@
+class No:
+    def __init__(self, valor):
+        self.info = valor
+        self.prox = None
+
+def lista_insere_final(lst, valor):
+    novo = No(valor)
+    if lst is None:
+        return novo
+    aux = lst
+    while aux.prox is not None:
+        aux = aux.prox
+    aux.prox = novo
+    return lst
 
