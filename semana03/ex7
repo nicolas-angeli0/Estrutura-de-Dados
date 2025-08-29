@@ -1,1 +1,10 @@
+class No:
+    def __init__(self, valor):
+        self.info = valor
+        self.prox = None
 
+def lista_altera(lst):
+    aux = lst
+    while aux is not None:
+        aux.info = -aux.info
+        aux = aux.prox
