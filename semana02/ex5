@@ -1,1 +1,21 @@
+class Livro:
+    def __init__(self, titulo, autor, paginas):
+        self.titulo = titulo
+        self.autor = autor
+        self.paginas = paginas
+
+    def tamanho(self):
+        if self.paginas <= 100:
+            return "curto"
+        else:
+            return "longo"
+
+def main():
+    livro1 = Livro("Python Básico", "Carlos", 80)
+    livro2 = Livro("Aprenda Python Avançado", "Maria", 250)
+
+    print(livro1.titulo, "-", livro1.tamanho())
+    print(livro2.titulo, "-", livro2.tamanho())
+
+main()
 
