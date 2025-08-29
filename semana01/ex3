@@ -1,1 +1,18 @@
+#Remoção de duplicatas mantendo a ordem: Crie uma função que remova elementos duplicados de uma lista, preservando a ordem
+# em que os elementos aparecem pela primeira vez.
+
+
+def remover_duplicatas(lista):
+    resultado = []
+    for elemento in lista:
+        if elemento not in resultado:
+            resultado.append(elemento)
+    return resultado
+
+def main():
+    numeros = [2, 3, 2, 5, 3, 2, 7]
+    print("Lista original:", numeros)
+    nova_lista = remover_duplicatas(numeros)
+    print("Lista sem duplicatas:", nova_lista)
+main()
 
