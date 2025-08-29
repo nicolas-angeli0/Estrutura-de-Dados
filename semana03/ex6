@@ -1,1 +1,17 @@
+class No:
+    def __init__(self, valor):
+        self.info = valor
+        self.prox = None
+
+def lista_calcula_media(lst):
+    if lst is None:
+        return 0
+    soma = 0
+    cont = 0
+    aux = lst
+    while aux is not None:
+        soma += aux.info
+        cont += 1
+        aux = aux.prox
+    return soma / cont
 
