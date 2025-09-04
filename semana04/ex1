@@ -1,1 +1,112 @@
+def menu():
+    print(" 1 - Inserir nó")
+    print(" 2 - Listar nós")
+    print(" 3 - Remover nós")
+    print(" 4 - Verificar se nó existe")
+    print(" 5 - Sair")
+    opcao = int(input("Escolha uma opção: "))
+    return opcao
+
+
+class No:
+    def __init__(self, nome, identificador):
+        self.id = identificador
+        self.nome = nome
+        self.ant = None
+        self.prox = None
+
+
+class lista:
+    def __init__(self):
+        self.inicio = None 
+        self.fim = None 
+
+    def inserir(self, nome, identificador):
+        novo = No(nome, identificador)
+        if self.inicio is None:
+            self.inicio = novo 
+            self.fim = novo
+        else:
+            self.fim.prox = novo 
+            novo.ant = self.fim
+            self.fim = novo
+
+    def listar(self):
+        if self.inicio is None:
+            print("Lista vazia!")
+        else: 
+            atual = self.inicio
+            while atual is not None:
+                print(f"ID: {atual.id}, Nome: {atual.nome}")
+                atual = atual.prox
+
+    def buscar_id(self, identificador):
+        atual = self.inicio
+        while atual is not None:
+            if atual.id == identificador:
+                return atual
+            atual = atual.prox
+        return None
+
+    def buscar_nome(self, nome):
+        atual = self.inicio
+        while atual is not None:
+            if atual.nome == nome:
+                return atual
+            atual = atual.prox
+        return None
+
+    def remover(self, identificador):
+        atual = self.buscar_id(identificador)
+        if atual is None:
+            print("Nó não encontrado.")
+            return
+
+        if atual.ant is None:  
+            self.inicio = atual.prox
+            if self.inicio is not None:
+                self.inicio.ant = None
+        elif atual.prox is None:  
+            self.fim = atual.ant
+            if self.fim is not None:
+                self.fim.prox = None
+        else:  
+            atual.ant.prox = atual.prox
+            atual.prox.ant = atual.ant
+
+        print(f"Nó com ID {atual.id} removido.")
+
+
+minha_lista = lista()
+
+while True:
+    opcao = menu()
+    if opcao == 1:
+        nome = input("Digite o nome: ")
+        identificador = int(input("Digite o identificador: "))
+        minha_lista.inserir(nome, identificador)
+    elif opcao == 2:
+        minha_lista.listar()
+    elif opcao == 3:
+        identificador = int(input("Digite o identificador do nó a remover: "))
+        minha_lista.remover(identificador)
+    elif opcao == 4:
+        print("1 - Buscar por ID")
+        print("2 - Buscar por Nome")
+        sub = int(input("Escolha: "))
+        if sub == 1:
+            identificador = int(input("Digite o ID: "))
+            no = minha_lista.buscar_id(identificador)
+            if no:
+                print(f"Nó encontrado, ID: {no.id}, Nome: {no.nome}")
+            else:
+                print("Nó não encontrado.")
+        elif sub == 2:
+            nome = input("Digite o nome: ")
+            no = minha_lista.buscar_nome(nome)
+            if no:
+                print(f"Nó encontrado, ID: {no.id}, Nome: {no.nome}")
+    elif opcao == 5:
+        print("Saindo.")
+        break
 
