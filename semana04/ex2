@@ -1,1 +1,93 @@
 
+def menu():
+    print("1 - Inserir aluno")
+    print("2 - Listar alunos")
+    print("3 - Remover aluno")
+    print("4 - Mostrar situação dos alunos")
+    print("5 - Listar alunos por classificação")
+    print("6 - Sair")
+    opcao = int(input("Escolha uma opção: "))
+    return opcao
+
+class Aluno:
+    def __init__(self,id,nome,nota):
+        self.id = id
+        self.nome = nome
+        self.nota = nota
+        self.ant = None
+        self.prox = None
+
+
+class ListaAlunos:
+    def __init__(self):
+        self.inicio = None
+        self.fim = None
+
+    def inserir(self,id,nome,nota):
+        novo = Aluno(id, nome, nota)
+        if self.inicio is None:
+            self.inicio = novo
+            self.fim = novo
+        else:
+            self.fim.prox = novo
+            novo.ant = self.fim
+            self.fim = novo
+
+    def listar(self):
+        if self.inicio is None:
+            print("Lista vazia.")
+        else:
+            atual = self.inicio
+            while atual is not None:
+                print(f"ID: {atual.id}, Nome: {atual.nome}, Nota: {atual.nota}")
+                atual = atual.prox
+
+    def remover(self, id):
+        atual = self.inicio
+        while atual is not None:
+            if atual.id == id:
+                if atual.ant is None:
+                    self.inicio = atual.prox
+                    if self.inicio:
+                        self.inicio.ant = None
+                elif atual.prox is None:
+                    self.fim = atual.ant
+                    if self.fim:
+                        self.fim.prox = None
+                else:
+                    atual.ant.prox = atual.prox
+                    atual.prox.ant = atual.ant
+                print(f"Aluno {atual.nome} removido.")
+                return
+            atual = atual.prox
+        print("Aluno não encontrado.")
+
+    def mostrar_situacao(self):
+        if self.inicio is None:
+            print("Lista vazia.")
+        else:
+            atual = self.inicio
+            while atual is not None:
+                situacao = ""
+                if atual.nota >= 7.0:
+                    situacao = "Aprovado"
+                elif atual.nota >= 4.0:
+                    situacao = "Exame"
+                else:
+                    situacao = "Reprovado"
+                print(f"ID: {atual.id}, Nome: {atual.nome}, Nota: {atual.nota} -> {situacao}")
+                atual = atual.prox
+
+    def listar_classificacao(self, tipo):
+        if self.inicio is None:
+            print("Lista vazia.")
+        else:
+            atual = self.inicio
+            while atual is not None:
+                if tipo == "Aprovado" and atual.nota >= 7.0:
+                    print(f"{atual.nome} (Nota: {atual.nota})")
+                elif tipo == "Exame" and 4.0 <= atual.nota < 7.0:
+                    print(f"{atual.nome} (Nota: {atual.nota})")
+                elif tipo == "Reprovado" and atual.nota < 4.0:
+                    print(f"{atual.nome} (Nota: {atual.nota})")
+                atual = atual.prox
