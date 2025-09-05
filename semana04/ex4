@@ -1,1 +1,75 @@
+class Tarefa:
+    def __init__(self, descricao, prazo):
+        self.descricao = descricao
+        self.prazo = prazo
+        self.anterior = None
+        self.proximo = None
 
+class Agenda:
+    def __init__(self):
+        self.inicio = None
+        self.fim = None
+
+    def inserir_tarefa(self, descricao, prazo):
+        nova = Tarefa(descricao, prazo)
+        if self.inicio is None:  
+            self.inicio = self.fim = nova
+        else:
+            nova.proximo = self.inicio
+            self.inicio.anterior = nova
+            self.inicio = nova
+        print(f"Tarefa '{descricao}' adicionada com prazo {prazo}.")
+
+    def remover_tarefa(self, descricao):
+        atual = self.inicio
+        while atual:
+            if atual.descricao == descricao:
+                if atual.anterior:
+                    atual.anterior.proximo = atual.proximo
+                else:
+                    self.inicio = atual.proximo
+                if atual.proximo:
+                    atual.proximo.anterior = atual.anterior
+                else:
+                    self.fim = atual.anterior
+                print(f"Tarefa '{descricao}' removida.")
+                return
+            atual = atual.proximo
+        print(f"Tarefa '{descricao}' não encontrada.")
+
+    def listar_tarefas(self):
+        if self.inicio is None:
+            print("Nenhuma tarefa cadastrada.")
+            return
+        atual = self.inicio
+        print("\n--- Lista de Tarefas ---")
+        while atual:
+            print(f"- {atual.descricao} (prazo: {atual.prazo})")
+            atual = atual.proximo
+
+def menu():
+    agenda = Agenda()
+    while True:
+        print("1. Inserir nova tarefa")
+        print("2. Remover tarefa existente")
+        print("3. Listar todas as tarefas")
+        print("0. Sair")
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            descricao = input("Descrição da tarefa: ")
+            prazo = input("Prazo da tarefa (AAAA-MM-DD): ")
+            agenda.inserir_tarefa(descricao, prazo)
+        elif opcao == "2":
+            descricao = input("Digite a descrição da tarefa a remover: ")
+            agenda.remover_tarefa(descricao)
+        elif opcao == "3":
+            agenda.listar_tarefas()
+        elif opcao == "0":
+            print("Encerrando programa...")
+            break
+        else:
+            print("Opção inválida!")
+
+if __name__ == "__main__":
+    menu()
