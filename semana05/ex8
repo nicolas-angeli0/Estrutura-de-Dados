@@ -1,1 +1,27 @@
+class ListaDuplamenteEncadeada:
+    def __init__(self):
+        self.inicio = None
+        self.fim = None
+
+    def adicionar_inicio(self, dado):
+        novo = NoDuplo(dado)
+        if self.inicio is None:
+            self.inicio = novo
+            self.fim = novo
+        else:
+            novo.proximo = self.inicio
+            self.inicio.anterior = novo
+            self.inicio = novo
+
+    def percorrer_frente(self):
+        atual = self.inicio
+        while atual is not None:
+            print(atual.dado)
+            atual = atual.proximo
+
+    def percorrer_tras(self):
+        atual = self.fim
+        while atual is not None:
+            print(atual.dado)
+            atual = atual.anterior
 
