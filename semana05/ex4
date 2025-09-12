@@ -15,11 +15,6 @@ class ListaEncadeada:
     def percorrer(self):
         atual = self.inicio
         while atual is not None:
-            print(atual.dado,)
+            print(atual.dado)
             atual = atual.proximo
-
-lista = ListaEncadeada()
-lista.adicionar_inicio(10)
-lista.adicionar_inicio(20)
-lista.adicionar_inicio(30)
-lista.percorrer()
+        print("nada")
