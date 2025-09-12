@@ -1,1 +1,26 @@
+class ListaEncadeada:
+    def __init__(self):
+        self.inicio = None
+
+    def adicionar_final(self, dado):
+        novo = No(dado)
+        if self.inicio is None:
+            self.inicio = novo
+        else:
+            atual = self.inicio
+            while atual.proximo is not None:
+                atual = atual.proximo
+            atual.proximo = novo
+
+    def media(self):
+        if self.inicio is None:
+            return 0
+        soma = 0
+        count = 0
+        atual = self.inicio
+        while atual is not None:
+            soma += atual.dado
+            count += 1
+            atual = atual.proximo
+        return soma / count
 
