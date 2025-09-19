@@ -1,1 +1,96 @@
+#exercicio
 
+class No:
+    def __init__(self,dado):
+        self.dado=dado
+        self.prox=None
+        self.ant=None
+
+class ListaDupla:
+    def __init__(self):
+        self.inicio=None
+        self.fim=None
+
+    def inserir_inicio(self,dado):
+        novo=No(dado)
+        if self.inicio is None:
+            self.inicio=self.fim=novo
+        else:
+            novo.prox=self.inicio
+            self.inicio.ant=novo
+            self.inicio=novo
+
+    def inserir_fim(self,dado):
+        novo=No(dado)
+        if self.inicio is None:
+            self.inicio=self.fim=novo
+        else:
+            self.fim.prox=novo
+            novo.ant=self.fim
+            self.fim=novo
+
+    def inserir_ordenado(self,dado):
+        novo=No(dado)
+        if self.inicio is None:
+            self.inicio=self.fim=novo
+        elif dado<self.inicio.dado:
+            novo.prox=self.inicio
+            self.inicio.ant=novo
+            self.inicio=novo
+        elif dado>self.fim.dado:
+            self.fim.prox=novo
+            novo.ant=self.fim
+            self.fim=novo
+        else:
+            atual=self.inicio
+            while atual and atual.dado<dado:
+                atual=atual.prox
+            anterior=atual.ant
+            anterior.prox=novo
+            novo.ant=anterior
+            novo.prox=atual
+            atual.ant=novo
+
+    def imprimir(self):
+        atual=self.inicio
+        while atual:
+            if atual.prox:
+                print(atual.dado,end="->")
+            else:
+                print(atual.dado)
+            atual=atual.prox
+
+    def imprimir_inverso(self):
+        atual=self.fim
+        while atual:
+            if atual.ant:
+                print(atual.dado,end="->")
+            else:
+                print(atual.dado)
+            atual=atual.ant
+
+    def buscar(self,valor):
+        atual=self.inicio
+        while atual:
+            if atual.dado==valor:
+                return atual
+            atual=atual.prox
+        return None
+
+    def remover(self,valor):
+        atual=self.buscar(valor)
+        if atual is None:
+            print("naoachou")
+            return
+        if atual==self.inicio:
+            self.inicio=atual.prox
+            if self.inicio:
+                self.inicio.ant=None
+        elif atual==self.fim:
+            self.fim=atual.ant
+            if self.fim:
+                self.fim.prox=None
+        else:
+            atual.ant.prox=atual.prox
+            atual.prox.ant=atual.ant
+        print("removido")
