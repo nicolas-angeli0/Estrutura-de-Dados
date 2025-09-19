@@ -1,1 +1,49 @@
+import random
+
+class No:
+    def __init__(self,id):
+        self.id=id
+        self.prox=None
+        self.ant=None
+
+class Roleta:
+    def __init__(self):
+        self.inicio=None
+        self.qtd=0
+
+    def adicionar(self,id):
+        novo=No(id)
+        if self.inicio is None:
+            self.inicio=novo
+            novo.prox=novo
+            novo.ant=novo
+        else:
+            fim=self.inicio.ant
+            fim.prox=novo
+            novo.ant=fim
+            novo.prox=self.inicio
+            self.inicio.ant=novo
+        self.qtd+=1
+
+    def eliminar(self,alvo):
+        if self.qtd==0:
+            return
+        atual=self.inicio
+        for _ in range(alvo):
+            atual=atual.prox
+        print("x",atual.id)
+        if self.qtd==1:
+            self.inicio=None
+        else:
+            atual.ant.prox=atual.prox
+            atual.prox.ant=atual.ant
+            if atual==self.inicio:
+                self.inicio=atual.prox
+        self.qtd-=1
+
+    def jogar(self):
+        while self.qtd>1:
+            alvo=random.randint(0,self.qtd-1)
+            self.eliminar(alvo)
+        print("vencedor",self.inicio.id)
 
