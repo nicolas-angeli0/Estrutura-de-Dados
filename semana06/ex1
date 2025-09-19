@@ -1,1 +1,87 @@
+class No:
+    def __init__(self,id,bastao=False):
+        self.id=id
+        self.bastao=bastao
+        self.prox=None
+
+class ListaCircular:
+    def __init__(self):
+        self.inicio=None
+
+    def adicionar(self,id,bastao=False):
+        novo=No(id,bastao)
+        if self.inicio is None:
+            self.inicio=novo
+            novo.prox=novo
+        else:
+            atual=self.inicio
+            while atual.prox!=self.inicio:
+                atual=atual.prox
+            atual.prox=novo
+            novo.prox=self.inicio
+
+    def remover(self,id):
+        if self.inicio is None:
+            return
+        atual=self.inicio
+        ant=None
+        while True:
+            if atual.id==id:
+                if ant is None:
+                    fim=self.inicio
+                    while fim.prox!=self.inicio:
+                        fim=fim.prox
+                    if fim==self.inicio:
+                        self.inicio=None
+                        return
+                    fim.prox=atual.prox
+                    self.inicio=atual.prox
+                else:
+                    ant.prox=atual.prox
+                return
+            ant=atual
+            atual=atual.prox
+            if atual==self.inicio:
+                break
+
+    def mostrar(self):
+        if self.inicio is None:
+            print("vazio")
+            return
+        atual=self.inicio
+        while True:
+            s="*"+str(atual.id) if atual.bastao else str(atual.id)
+            if atual.prox!=self.inicio:
+                print(s,end="->")
+            else:
+                print(s)
+            atual=atual.prox
+            if atual==self.inicio:
+                break
+
+    def passar(self,vezes):
+        if self.inicio is None:
+            return
+        atual=self.inicio
+        if not any(self.iterb()):
+            self.inicio.bastao=True
+        for i in range(vezes):
+            while not atual.bastao:
+                atual=atual.prox
+            atual.bastao=False
+            atual=atual.prox
+            atual.bastao=True
+            self.mostrar()
+
+    def iterb(self):
+        if self.inicio is None:
+            return []
+        lista=[]
+        atual=self.inicio
+        while True:
+            lista.append(atual.bastao)
+            atual=atual.prox
+            if atual==self.inicio:
+                break
+        return lista
 
