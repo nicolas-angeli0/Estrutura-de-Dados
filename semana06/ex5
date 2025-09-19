@@ -1,1 +1,79 @@
+class No:
+    def __init__(self,nome,idade,prioridade):
+        self.nome=nome
+        self.idade=idade
+        self.prioridade=prioridade
+        self.prox=None
+
+class Triagem:
+    def __init__(self):
+        self.inicio=None
+
+    def inserir(self,nome,idade,prioridade):
+        novo=No(nome,idade,prioridade)
+        if self.inicio is None:
+            self.inicio=novo
+            novo.prox=novo
+        else:
+            atual=self.inicio
+            while atual.prox!=self.inicio:
+                atual=atual.prox
+            atual.prox=novo
+            novo.prox=self.inicio
+
+    def remover(self,nome):
+        if self.inicio is None:
+            return
+        atual=self.inicio
+        ant=None
+        while True:
+            if atual.nome==nome:
+                if ant is None:
+                    fim=self.inicio
+                    while fim.prox!=self.inicio:
+                        fim=fim.prox
+                    if fim==self.inicio:
+                        self.inicio=None
+                        return
+                    fim.prox=atual.prox
+                    self.inicio=atual.prox
+                else:
+                    ant.prox=atual.prox
+                return
+            ant=atual
+            atual=atual.prox
+            if atual==self.inicio:
+                break
+
+    def mostrar(self):
+        if self.inicio is None:
+            print("vazio")
+            return
+        atual=self.inicio
+        while True:
+            if atual.prox!=self.inicio:
+                print(f"{atual.nome}({atual.idade},{atual.prioridade})",end="->")
+            else:
+                print(f"{atual.nome}({atual.idade},{atual.prioridade})")
+            atual=atual.prox
+            if atual==self.inicio:
+                break
+
+    def simular(self):
+        prioridades=["emergencia","urgente","normal"]
+        while self.inicio is not None:
+            for p in prioridades:
+                atual=self.inicio
+                achou=False
+                while True:
+                    if atual.prioridade==p:
+                        print("atendido:",atual.nome)
+                        self.remover(atual.nome)
+                        achou=True
+                        break
+                    atual=atual.prox
+                    if atual==self.inicio:
+                        break
+                if achou:
+                    break
 
