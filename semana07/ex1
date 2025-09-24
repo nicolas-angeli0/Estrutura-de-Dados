@@ -1,1 +1,69 @@
+class No:
+    def __init__(self,objeto,id,altitude,integrigade):
+        self.prox=None
+        self.ant=None
+        self.objeto=objeto
+        self.id=id
+        self.altitude=altitude
+        self.integrigade=integrigade
+        self.lista=[]
+
+
+class satelite:
+    def __init__(self):
+        self.inicio=None
+        self.fim=None
+
+    def novo(self,no):
+        if self.inicio is None:
+            self.inicio=self.fim=no
+            no.prox=no
+            no.ant=no
+        else:
+            no.ant=self.fim
+            no.prox=self.inicio
+            self.fim.prox=no
+            self.inicio.ant=no
+            self.fim=no
+    
+    def listar(self):
+        if not self.inicio:            
+            print("Nenhum satélite em órbita.")
+            return
+        atual=self.inicio            
+        while True:
+            print("Satélite",atual.id,  "Altitude:", atual.altitude,  "Integridade:", atual.integridade)
+            atual=atual.prox         
+            if atual==self.inicio:   
+                break
+
+    def remover(self, no):
+        if self.inicio==self.fim:    
+            self.inicio=self.fim = None
+        else:                         
+            no.ant.prox=no.prox     
+            no.prox.ant=no.ant       
+            if no==self.inicio:     
+                self.inicio=no.prox
+            if no==self.fim:         
+                self.fim=no.ant
+
+    def simular_voltas(self,voltas=3):
+        for v in range(1,voltas+1):          
+            print("voltas",v)
+            if not self.inicio or self.inicio==self.fim:  
+                print("sem colisão")
+                break
+            sat1=self.inicio                 
+            sat2=self.inicio.prox             
+            sat1.integridade-=20              
+            sat2.integridade-=20
+            print("Colisão: Satélite",sat1.id,"e Satélite",sat2.id)
+            if sat1.integridade<=0:           
+                print("Satélite",sat1.id,"destruído")
+                self.remover(sat1)
+            if sat2.integridade<=0:
+                print("Satélite",sat2.id,"destruído")
+                self.remover(sat2)
+            self.listar() 
 
