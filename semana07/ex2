@@ -1,1 +1,37 @@
+class No:
+	def __init__(self,nome,pais,tarefas):
+		self.nome=nome
+		self.pais=pais
+		self.tarefas=tarefas
+		self.prox=None
 
+def inserir(inicio,no):
+	if inicio is None:
+		return no
+	else:
+		atual=inicio
+		while atual.prox:
+			atual=atual.prox
+		atual.prox=no
+		return inicio
+
+def listar(inicio):
+	if not inicio:
+		print("Nenhum satélite na lista.")
+		return
+	atual=inicio
+	while atual:
+		print("Satélite:",atual.nome,"País de Origem:",atual.pais_origem,"Tarefas:",atual.tarefas)
+		atual=atual.prox
+
+def remover(inicio,nome):
+	if not inicio:
+		return None
+	if inicio.nome==nome:
+		return inicio.prox
+	atual=inicio
+	while atual.prox and atual.prox.nome!=nome:
+		atual=atual.prox
+	if atual.prox:
+		atual.prox=atual.prox.prox
+	return inicio
