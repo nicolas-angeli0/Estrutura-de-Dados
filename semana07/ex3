@@ -1,1 +1,186 @@
+class No:
+	def __init__(self,nome,altitude,combustivel,ativo=True):
+		self.nome=nome
+		self.altitude=altitude
+		self.combustivel=combustivel
+		self.ativo=ativo
+		self.prox=None
+		self.ant=None
 
+def inserir(lista,nome,altitude,combustivel,ativo=True):
+	novo=No(nome,altitude,combustivel,ativo)
+	if lista==None:
+		lista=novo
+		lista.prox=novo
+		lista.ant=novo
+		return lista
+	else:
+		ultimo=lista.ant
+		novo.prox=lista
+		novo.ant=ultimo
+		ultimo.prox=novo
+		lista.ant=novo
+		return lista
+
+def listar(lista):
+	if lista==None:
+		print("Nenhum satélite em órbita.")
+		return
+	aux=lista
+	while True:
+		print(f"Nome:{aux.nome} | Altitude:{aux.altitude} km | Combustível:{aux.combustivel}% | Ativo:{aux.ativo}")
+		aux=aux.prox
+		if aux==lista:
+			return
+
+def remover(lista,nome):
+	if lista==None:
+		return None
+	aux=lista
+	while True:
+		if aux.nome==nome:
+			if aux.prox==aux:
+				return None
+			elif aux==lista:
+				aux.prox.ant=aux.ant
+				aux.ant.prox=aux.prox
+				return lista.prox
+			elif aux.prox==lista:
+				aux.ant.prox=lista
+				lista.ant=aux.ant
+				return lista
+			else:
+				aux.prox.ant=aux.ant
+				aux.ant.prox=aux.prox
+				return lista
+		aux=aux.prox
+		if aux==lista:
+			print("Satélite não encontrado.")
+			return lista
+
+def simular_orbita(lista):
+	if lista==None:
+		print("Nenhum satélite para simular.")
+		return None
+	aux=lista
+	while True:
+		aux.combustivel-=10
+		print(f"{aux.nome} consumiu combustível. Restante: {aux.combustivel}%")
+		if aux.combustivel<=0:
+			print(f"{aux.nome} caiu da órbita!")
+			lista=remover(lista,aux.nome)
+		aux=aux.prox
+		if aux==lista:
+			return lista
+
+def percorrer_horario(lista):
+	print("\nPercurso horário:")
+	listar(lista)
+
+def percorrer_antihorario(lista):
+	if lista==None:
+		print("Lista vazia")
+		return
+	print("\nPercurso anti-horário:")
+	aux=lista.ant
+	while True:
+		print(f"Nome:{aux.nome} | Altitude:{aux.altitude} km | Combustível:{aux.combustivel}% | Ativo:{aux.ativo}")
+		aux=aux.ant
+		if aux==lista.ant:
+			return
+
+def reposicionar(lista,nome,nova_altitude):
+	aux=lista
+	while True:
+		if aux.nome==nome:
+			aux.altitude=nova_altitude
+			print(nome, "reposicionado para", nova_altitude," km")
+			return lista
+		aux=aux.prox
+		if aux==lista:
+			print("Satélite não encontrado.")
+			return lista
+
+def mostrar_ativos(lista):
+	if lista==None:
+		print("Lista vazia")
+		return
+	aux=lista
+	while True:
+		if aux.ativo:
+			print(aux.nome, aux.altitude, "km)")
+		aux=aux.prox
+		if aux==lista:
+			return
+
+def mostrar_desativados(lista):
+	if lista==None:
+		print("Lista vazia")
+		return
+	aux=lista
+	while True:
+		if not aux.ativo:
+			print(aux.nome, aux.altitude," km)")
+		aux=aux.prox
+		if aux==lista:
+			return
+
+def desativar(lista,nome):
+	aux=lista
+	while True:
+		if aux.nome==nome:
+			aux.ativo=False
+			print(nome," foi desativado.")
+			return lista
+		aux=aux.prox
+		if aux==lista:
+			print("Satélite não encontrado.")
+			return lista
+
+def menu():
+	print("1")
+	print("2")
+	print("3")
+	print("4")
+	print("5")
+	print("6")
+	print("7")
+	print("8")
+	print("9")
+	print("10")
+	print("11 - Sair")
+	return int(input("Opção: "))
+
+def main():
+	lista=None
+	opc=0
+	while opc!=11:
+		opc=menu()
+		if opc==1:
+			nome=input("Nome: ")
+			alt=int(input("Altitude: "))
+			comb=int(input("Combustível: "))
+			lista=inserir(lista,nome,alt,comb)
+		elif opc==2:
+			listar(lista)
+		elif opc==3:
+			nome=input("satélite para remover: ")
+			lista=remover(lista,nome)
+		elif opc==4:
+			lista=simular_orbita(lista)
+		elif opc==5:
+			percorrer_horario(lista)
+		elif opc==6:
+			percorrer_antihorario(lista)
+		elif opc==7:
+			nome=input("Nome: ")
+			alt=int(input("Nova altitude: "))
+			lista=reposicionar(lista,nome,alt)
+		elif opc==8:
+			nome=input("Nome: ")
+			lista=desativar(lista,nome)
+		elif opc==9:
+			mostrar_ativos(lista)
+		elif opc==10:
+			mostrar_desativados(lista)
+main()
