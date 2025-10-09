@@ -1,1 +1,53 @@
+class calculadora:
+    def __init__(self,):
+        self.operacoes=[]
+
+    def inserir_operacao(self,operacao):
+        self.operacoes.append(operacao)
+
+    def retirar_operacao(self):
+        if len(self.operacoes)>0:
+            remover=self.operacoes.pop()
+            print("removida:",remover)
+        else:
+            print("pilha vazia")
+
+    def mostrar_ultima(self):
+        if self.operacoes:
+            print("última:",self.operacoes[-1])
+        else:
+            print("vazia")
+
+    def mostrar_todas(self):
+        if self.operacoes:
+            contador=1
+            for operacao in self.operacoes:
+                print(str(contador)+" - "+operacao)
+                contador=contador+1
+        else:
+            print("vazia")
+
+def menu():
+    calc=calculadora()
+    while True:
+        print("1-nova operação")
+        print("2-retirar operação")
+        print("3-mostrar última")
+        print("4-mostrar todas")
+        print("5-sair")
+
+        opc=int(input("opção:"))
+        if opc==1:
+            operacao=input("operação: ")
+            calc.inserir_operacao(operacao)
+        elif opc==2:
+            calc.retirar_operacao()
+        elif opc==3:
+            calc.mostrar_ultima()
+        elif opc==4:
+            calc.mostrar_todas()
+        elif opc==5:
+            print("saindo")
+            break
+menu()
 
