@@ -1,1 +1,49 @@
+class navegador:
+    def __init__(self,):
+        self.historico=[]
+
+    def nova_pagina(self,pagina):
+        self.historico.append(pagina)
+
+    def pag_anterior(self):
+        if len(self.historico)>1:
+            remover=self.historico.pop()
+            print("voltando para",self.historico[-1])
+        elif len(self.historico)==1:
+            print("primeira página")
+        else:
+            print("não há páginas")
+    
+    def mostrar_pag(self):
+        print(self.historico)
+
+    def listar_historico(self):
+        if self.historico:
+            contador=1
+            for pagina in self.historico:
+                print(str(contador)+ pagina)
+                contador=contador+1
+
+def menu():
+    nav=navegador()
+    while True:
+        print("1-nova página")
+        print("2-voltar a pagina anterior")
+        print("3-mostrar pagina anterior")
+        print("4-mostrar todo o histórico")
+        print("5-sair")
+
+        opc=int(input("escolha uma opção:"))
+    if opc==1:
+        nav.nova_pagina(pagina)
+    elif opc==2:
+        nav.pag_anterior()
+    elif opc==3:
+        nav.mostrar_pag()
+    elif opc==4:
+        nav.listar_historico()
+    elif opc==5:
+        print("saindo.")
+        break
+menu()
 
