@@ -1,1 +1,76 @@
+class No:
+    def __init__(self):
+        self.lista=[]
 
+    def ad_jogador(self):
+        jogador=input("qual jogador quer adicionar: ")
+        self.lista.append(jogador)
+        print(jogador,"adicionado no final da fila.")
+
+    def rem_jogador(self):
+        print("fila atual:",self.lista)
+        jogador=input("qual jogador quer remover: ")
+        if jogador in self.lista:
+            self.lista.remove(jogador)
+            print(jogador,"removido")
+        else:
+            print("não está na fila.")
+
+    def simular_rodada(self):
+        jogador=self.lista.pop(0)
+        print(jogador,"foi pro final da fila")
+        self.lista.append(jogador)
+    
+    def simular_num_rodadas(self):
+        n=int(input("quantas rodadas quer simular: "))
+        for i in range(1, n+1):
+            jogador=self.lista.pop(0)
+            print("rodada",i,jogador,"jogou")
+            self.lista.append(jogador)
+            print("fila atual:",self.lista)
+        
+    def mostrar_fila(self):
+        print("fila completa: ",self.lista)
+
+    def prox_a_jogar(self):
+        if not self.lista:
+            print("lista vazia")
+        else:
+            print("prox a jogar:", self.lista[0])
+
+    def limpar_fila(self):
+        self.lista=[]
+        print("fila vazia")
+
+def main():
+    sala=No()
+
+    while True:
+        print("1 - Adicionar jogador")
+        print("2 - Remover jogador")
+        print("3 - Simular 1 rodada")
+        print("4 - Simular N rodadas")
+        print("5 - Mostrar fila")
+        print("6 - Próximo a jogar")
+        print("7 - Limpar fila")
+        print("8 - Sair")
+        opc=int(input("escolha uma opção:"))
+
+        if opc==1:
+            sala.ad_jogador()
+        elif opc==2:
+            sala.rem_jogador()
+        elif opc==3:
+            sala.simular_rodada()
+        elif opc==4:
+            sala.simular_num_rodadas()
+        elif opc==5:
+            sala.mostrar_fila()
+        elif opc==6:
+            sala.prox_a_jogar()
+        elif opc==7:
+            sala.limpar_fila()
+        elif opc==8:
+            print("saindo...")
+            break           
+main()
