@@ -1,1 +1,30 @@
+class No:
+    def __init__(self):
+        self.lista=["Carro 1", "Carro 2", "Carro 3", "Carro 4", "Carro 5", "Carro 6", "Carro 7", "Carro 8",
+         "Carro 9", "Carro 10", "Carro 11", "Carro 12", "Carro 13", "Carro 14", "Carro 15", "Carro 16", "Carro 17", 
+         "Carro 18", "Carro 19", "Carro 20"]
+
+    def colocar_carro(self):
+        carro=input("qual carro quer adicionar:")
+        self.lista.append(carro)
+        print(carro,"na garagem")
+
+    def retirar_carro(self):
+        print("carros na garagem:",self.lista)
+        retirar=input("qual carro quer retirar: ")
+        if retirar in self.lista:
+            retirados=[]
+            while True:
+                carro=self.lista.pop()
+                retirados.append(carro)
+                if carro==retirar:
+                    break
+            print("carros retirados: ",retirados)         
+        else:
+            print("esse carro não está na garagem.")
+def main():
+    garagem=No()
+    garagem.colocar_carro()
+    garagem.retirar_carro()
+main()
 
