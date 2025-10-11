@@ -1,1 +1,97 @@
-semana
+class Nodo:
+    def __init__(self,dado):
+        self.dado=dado
+        self.prox=None
+        self.ant=None
+
+class Deque:
+    def __init__(self):
+        self.inicio=None
+        self.fim=None
+        self.chamados=0
+    
+    def add_fim_fila(self):
+        dado=input("digite o chamado comum: ")
+        novo=Nodo(dado)
+        if self.fim is None:
+            self.inicio=self.fim=novo
+        else:
+            novo.ant=self.fim
+            self.fim.prox=novo
+            self.fim=novo
+        self.chamados+=1
+        print(dado,"adicionado no fim da fila")
+    
+    def add_inicio_fila(self):
+        dado=input("digite o chamado urgente:")
+        novo=Nodo(dado)
+        if self.inicio is None:
+            self.inicio=self.fim=novo
+        else:
+            novo.prox=self.inicio
+            self.inicio.ant=novo
+            self.inicio=novo
+        self.chamados+=1
+        print(dado,"adiciondo na inicio da fila como urgente")
+
+    def atender_inicio(self):
+        if self.inicio is None:
+            print("fila vazia")
+            return
+        print(self.inicio.dado,"atendido do começo da fila")
+        self.inicio=self.inicio.prox
+        if self.inicio is None:
+            self.fim=None
+        else:
+            self.inicio.ant=None
+        self.chamados-=1
+
+    def atender_fim(self):
+        if self.fim is None:
+            print("fila vazia")
+            return
+        print(self.fim.dado,"atendido no fim da fila")
+        self.fim=self.fim.ant
+        if self.fim is None:
+            self.inicio=None
+        else:
+            self.fim.prox=None
+        self.chamados-=1
+
+    def listar(self):
+        if self.inicio is None:
+            print("fila vazia")
+            return
+        print("chamados da fila: ")
+        aux=self.inicio
+        while aux:
+            print("-",aux.dado)
+            aux=aux.prox
+        print()
+
+def main():
+    deque=Deque()
+    opc=0
+    while opc!=6:
+        print("1 - Adicionar chamado no fim (comum)")
+        print("2 - Adicionar chamado no início (urgente)")
+        print("3 - Atender chamado do início")
+        print("4 - Atender chamado do fim")
+        print("5 - Listar chamados")
+        print("6 - Sair")
+        opc=int(input("Escolha uma opção: "))
+
+        if opc==1:
+            deque.add_fim_fila()
+        elif opc==2:
+            deque.add_inicio_fila()
+        elif opc==3:
+            deque.atender_inicio()
+        elif opc==4:
+            deque.atender_fim()
+        elif opc==5:
+            deque.listar()
+        elif opc==6:
+            print("Saindo do sistema...")
+
+main()
