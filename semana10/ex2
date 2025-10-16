@@ -20,7 +20,7 @@ class Banco:
             self.fim.prox=novo
             self.fim=novo
         self.total+=1
-        print(nome,"entrou no fim da fila (cliente comum).")
+        print(nome,"entrou no fim da fila.")
 
     def add_preferencial(self):
         nome=input("Digite o nome do cliente preferencial:")
@@ -32,7 +32,7 @@ class Banco:
             self.inicio.ant=novo
             self.inicio=novo
         self.total+=1
-        print(nome,"entrou no início da fila (cliente preferencial).")
+        print(nome,"entrou no início da fila.")
 
     def atender(self):
         if self.inicio is None:
@@ -48,9 +48,9 @@ class Banco:
 
     def listar(self):
         if self.inicio is None:
-            print("Fila vazia.")
+            print("Vazio")
             return
-        print("Ordem atual de atendimento:")
+        print("Ordem de atendimento:")
         aux=self.inicio
         while aux:
             print("-",aux.nome)
@@ -61,14 +61,13 @@ def main():
     banco=Banco()
     opc=0
     while opc!=5:
-        print("===MENU BANCO===")
         print("1-Adicionar cliente comum")
         print("2-Adicionar cliente preferencial")
         print("3-Atender próximo cliente")
         print("4-Mostrar fila de atendimento")
         print("5-Sair")
         opc=int(input("Escolha uma opção:"))
-        
+
         if opc==1:
             banco.add_comum()
         elif opc==2:
