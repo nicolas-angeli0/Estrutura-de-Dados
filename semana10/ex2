@@ -1,1 +1,85 @@
+class Nodo:
+    def __init__(self,nome):
+        self.nome=nome
+        self.prox=None
+        self.ant=None
 
+class Banco:
+    def __init__(self):
+        self.inicio=None
+        self.fim=None
+        self.total=0
+
+    def add_comum(self):
+        nome=input("Digite o nome do cliente comum:")
+        novo=Nodo(nome)
+        if self.fim is None:
+            self.inicio=self.fim=novo
+        else:
+            novo.ant=self.fim
+            self.fim.prox=novo
+            self.fim=novo
+        self.total+=1
+        print(nome,"entrou no fim da fila (cliente comum).")
+
+    def add_preferencial(self):
+        nome=input("Digite o nome do cliente preferencial:")
+        novo=Nodo(nome)
+        if self.inicio is None:
+            self.inicio=self.fim=novo
+        else:
+            novo.prox=self.inicio
+            self.inicio.ant=novo
+            self.inicio=novo
+        self.total+=1
+        print(nome,"entrou no início da fila (cliente preferencial).")
+
+    def atender(self):
+        if self.inicio is None:
+            print("Fila vazia, nenhum cliente para atender.")
+            return
+        print("Cliente",self.inicio.nome,"foi atendido.")
+        self.inicio=self.inicio.prox
+        if self.inicio is None:
+            self.fim=None
+        else:
+            self.inicio.ant=None
+        self.total-=1
+
+    def listar(self):
+        if self.inicio is None:
+            print("Fila vazia.")
+            return
+        print("Ordem atual de atendimento:")
+        aux=self.inicio
+        while aux:
+            print("-",aux.nome)
+            aux=aux.prox
+        print()
+
+def main():
+    banco=Banco()
+    opc=0
+    while opc!=5:
+        print("===MENU BANCO===")
+        print("1-Adicionar cliente comum")
+        print("2-Adicionar cliente preferencial")
+        print("3-Atender próximo cliente")
+        print("4-Mostrar fila de atendimento")
+        print("5-Sair")
+        opc=int(input("Escolha uma opção:"))
+        
+        if opc==1:
+            banco.add_comum()
+        elif opc==2:
+            banco.add_preferencial()
+        elif opc==3:
+            banco.atender()
+        elif opc==4:
+            banco.listar()
+        elif opc==5:
+            print("Encerrando.")
+        else:
+            print("Opção inválida.")
+
+main()
