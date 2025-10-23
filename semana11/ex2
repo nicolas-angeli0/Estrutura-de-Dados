@@ -1,1 +1,13 @@
+def soma_impares(n):
+    if n==0:
+        return 0
+    elif n%2!=0:
+        soma=n+soma_impares(n-1)
+        print("Soma até",n,"=",soma)
+        return soma
+    else:
+        return soma_impares(n-1)
+
+n=int(input("Digite um número: "))
+print("Soma total =",soma_impares(n))
 
