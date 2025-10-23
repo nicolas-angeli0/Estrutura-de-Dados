@@ -1,1 +1,6 @@
-
+def contagem_regressiva(num):
+    if num==0:
+        return  
+    else:
+        print(num)
+        contagem_regressiva(num-1)  
