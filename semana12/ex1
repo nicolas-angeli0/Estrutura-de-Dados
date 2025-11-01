@@ -1,1 +1,73 @@
+class Node:
+    def __init__(self,dado):
+        self.dado=dado
+        self.esquerda=None
+        self.direita=None
+
+class Arvore:
+    def __init__(self):
+        self.raiz=None
+
+    def inserir(self,dado):
+        novo=Node(dado)
+        if self.raiz is None:
+            self.raiz=novo
+            return
+        atual=self.raiz
+        while True:
+            if dado < atual.dado:
+                if atual.esquerda is None:
+                    atual.esquerda=novo
+                    return
+                atual=atual.esquerda
+            else:
+                if atual.direita is None:
+                    atual.direita=novo
+                    return
+                atual=atual.direita
+
+    def pre_ordem(self,no):
+        if no:
+            print(no.dado)
+            self.pre_ordem(no.esquerda)
+            self.pre_ordem(no.direita)
+
+    def em_ordem(self,no):
+        if no:
+            self.em_ordem(no.esquerda)
+            print(no.dado)
+            self.em_ordem(no.direita)
+
+    def pos_ordem(self,no):
+        if no:
+            self.pos_ordem(no.esquerda)
+            self.pos_ordem(no.direita)
+            print(no.dado)
+
+def menu():
+    print("1-inserir")
+    print("2-pre ordem")
+    print("3-em ordem")
+    print("4-pos ordem")
+    print("5-sair")
+    return int(input("digite uma opção: "))
+
+def main():
+    arv=Arvore()
+    opc=0
+    while opc !=5:
+        opc=menu()
+        if opc==1:
+            v=int(input("valor: "))
+            arv.inserir(v)
+        elif opc==2:
+            arv.pre_ordem(arv.raiz)
+        elif opc==3:
+            arv.em_ordem(arv.raiz)
+        elif opc==4:
+            arv.pos_ordem(arv.raiz)
+        elif opc==5:
+            print("saindo...")
+
+main()
 
